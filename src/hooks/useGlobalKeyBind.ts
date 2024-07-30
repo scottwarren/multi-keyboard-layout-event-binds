@@ -1,17 +1,14 @@
 import { useCallback } from 'react'
 
 /**
- *
+ * Used to bind a key to a callback function on a global level.
  */
-export function useElementKeyBind({
-  key,
-  callback,
-  element,
-}: ElementKeyBindProps) {
+export function useGlobalKeyBind({ key, callback }: ElementKeyBindProps) {
   const handler = useCallback(
     (e: KeyboardEvent) => {
       // TODO: add parsing of key combinations
       // TODO: add support for checking whether certain keys are pressed.
+      // TODO: Test which method of checking for key combinations works amongst multiple keyboard layouts.
       if (e.key === key) {
         callback(e)
       }
@@ -19,17 +16,16 @@ export function useElementKeyBind({
     [key, callback],
   )
 
-  element.addEventListener('keydown', handler)
+  document.addEventListener('keydown', handler)
 
   return () => {
-    element.removeEventListener('keydown', handler)
+    document.removeEventListener('keydown', handler)
   }
 }
 
 interface ElementKeyBindProps {
   /** Key(s) for the event */
   key: string
-  /** Element that the */
-  element: HTMLElement
+  /** Callback to be run upon the key press occurring. */
   callback: (ev: KeyboardEvent) => void
 }
