@@ -1,25 +1,31 @@
-import { useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
+
 import { useGlobalKeyBind } from './hooks/useGlobalKeyBind'
 
 function App() {
-  const [showMessage, setShowMessage] = useState(false)
-
-  useGlobalKeyBind('k', () => {
-    console.log('hello!', 'k', 'pressed')
-    setShowMessage((m) => !m)
+  useGlobalKeyBind('k', (e: KeyboardEvent) => {
+    console.log(e)
+    toast('k pressed')
+  })
+  useGlobalKeyBind('mod+k', (e: KeyboardEvent) => {
+    console.log(e)
+    toast('mod+k  pressed')
+  })
+  useGlobalKeyBind('ctrl+k', (e: KeyboardEvent) => {
+    console.log(e)
+    toast('ctrl+k pressed')
   })
 
   return (
     <div>
+      <Toaster position="top-right" />
       <h1 className="text-3xl font-bold underline text-center">
         Multi keyboard layout binds
       </h1>
-      {!showMessage && (
-        <p>
-          Try it out! Press <code>k</code> to see the magic happen!
-        </p>
-      )}
-      {showMessage && <p>hello! k pressed</p>}
+      <p>
+        Try it out! Press <code>k</code>, <code>mod+k</code>, or{' '}
+        <code>ctrl+k</code> to see the magic happen!
+      </p>
     </div>
   )
 }
