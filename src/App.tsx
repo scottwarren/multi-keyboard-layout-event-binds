@@ -7,6 +7,10 @@ function App() {
     console.log(e)
     toast('k pressed')
   })
+  useGlobalKeyBind('meta+k', (e: KeyboardEvent) => {
+    console.log(e)
+    toast('meta+k  pressed')
+  })
   useGlobalKeyBind('mod+k', (e: KeyboardEvent) => {
     console.log(e)
     toast('mod+k  pressed')
