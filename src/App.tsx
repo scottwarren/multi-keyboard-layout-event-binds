@@ -4,18 +4,22 @@ import { useGlobalKeyBind } from './hooks/useGlobalKeyBind'
 
 function App() {
   useGlobalKeyBind('k', (e: KeyboardEvent) => {
+    e.preventDefault()
     console.log(e)
     toast('k pressed')
   })
   useGlobalKeyBind('meta+k', (e: KeyboardEvent) => {
+    e.preventDefault()
     console.log(e)
     toast('meta+k  pressed')
   })
   useGlobalKeyBind('mod+k', (e: KeyboardEvent) => {
+    e.preventDefault()
     console.log(e)
     toast('mod+k  pressed')
   })
   useGlobalKeyBind('ctrl+k', (e: KeyboardEvent) => {
+    e.preventDefault()
     console.log(e)
     toast('ctrl+k pressed')
   })
