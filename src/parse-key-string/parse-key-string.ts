@@ -1,5 +1,7 @@
 import type { ParsedKeyT } from './parse-key-string.types'
 
+import { isMacOs, isWindows, isLinux } from 'environment'
+
 /**
  * Used to parse a human readable string of a key binding.
  *
@@ -29,7 +31,13 @@ export function parseKeyString(keyString: string): ParsedKeyT {
   }
 
   if (parts.includes('mod')) {
-    // TODO: check for windows/mac
+    if (isMacOs) {
+      metaKey = true
+    }
+
+    if (isWindows || isLinux) {
+      ctrlKey = true
+    }
   }
 
   if (parts.includes('ctrl')) {
