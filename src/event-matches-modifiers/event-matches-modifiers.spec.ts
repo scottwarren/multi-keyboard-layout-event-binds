@@ -36,6 +36,30 @@ describe('event-matches-key', () => {
 
     expect(eventMatchesModifiers(altCtrlKEvent, parsedKey)).toBe(true)
   })
+
+  it('should return false if only some of the modifiers are pressed', () => {
+    const altCtrlKEvent = createFakeKeyboardEvent({
+      key: 'k',
+      altKey: false,
+      ctrlKey: true,
+    })
+
+    const parsedKey = parseKeyString('alt+ctrl+k')
+
+    expect(eventMatchesModifiers(altCtrlKEvent, parsedKey)).toBe(false)
+  })
+  it('should return false if extra modifiers are pressed', () => {
+    const extraKeyEvent = createFakeKeyboardEvent({
+      key: 'k',
+      altKey: true,
+      ctrlKey: true,
+      metaKey: true,
+    })
+
+    const parsedKey = parseKeyString('ctrl+k')
+
+    expect(eventMatchesModifiers(extraKeyEvent, parsedKey)).toBe(false)
+  })
 })
 
 /**
