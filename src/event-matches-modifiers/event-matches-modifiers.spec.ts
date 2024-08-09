@@ -1,4 +1,4 @@
-import { parseKeyString } from '@/parse-key-string/parse-key-string'
+import { parseKeyString } from '../parse-key-string/parse-key-string'
 import { eventMatchesModifiers } from './event-matches-modifiers'
 
 import { describe, it, expect } from 'vitest'
