@@ -1,3 +1,5 @@
+import { eventMatchesModifiers } from '../event-matches-modifiers/event-matches-modifiers'
+import { parseKeyString } from '../parse-key-string/parse-key-string'
 import { useEffect } from 'react'
 
 /**
@@ -24,12 +26,25 @@ export function useGlobalKeyBind(
  * Used to create the keydown handler function
  */
 function handleKeyDown(key: string, callback: (ev: KeyboardEvent) => void) {
-  return function keydown(e: KeyboardEvent) {
+  const parsedKey = parseKeyString(key)
+
+  return function keydown(event: KeyboardEvent) {
+    // Check for modifier keys in the event
+    // _if_ the parsed key includes the modifier key
+
     // TODO: add parsing of key combinations
-    // TODO: add support for checking whether certain keys are pressed.
     // TODO: Test which method of checking for key combinations works amongst multiple keyboard layouts.
-    if (e.key === key) {
-      callback(e)
+    if (event.key !== parsedKey.key) {
+      console.log('key does not match', `event.key: ${event.key}`)
+      return
     }
+
+    const modifierMatches = eventMatchesModifiers(event, parsedKey)
+
+    if (!modifierMatches) {
+      return
+    }
+
+    callback(event)
   }
 }
